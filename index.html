@@ -224,7 +224,10 @@ Qty: <input type="number" id="coffee" value="0" min="0">
   <option value="QR Payment">QR Payment</option>
   <option value="Cash on Delivery">Cash on Delivery</option>
 </select><br><br>
-<img src="qr.png" width="200"><br><br>
+<img src="qr.png" width="200"><br><br><!-- LIVE TOTAL PRICE -->
+<div class="order-total" style="text-align:center; margin:20px 0; font-size:24px; font-weight:bold;">
+  Total Price: ₹<span id="totalPrice">0</span>
+</div>
 <button class="order-btn" onclick="placeOrder()">Place Order</button>
 </div>
 
@@ -256,7 +259,37 @@ function placeOrder(){
   // Redirect to confirmation page with query params
   window.location.href = `order-success.html?name=${encodeURIComponent(name)}&payment=${encodeURIComponent(payment)}&total=${total}`;
 }
+</script><!-- Your existing HTML content -->
+<!-- Your existing scripts like placeOrder() and WhatsApp integration -->
+<script>
+function placeOrder() {
+  // Your WhatsApp + redirect code
+}
 </script>
+
+<!-- LIVE TOTAL SCRIPT (this goes AFTER your other scripts) -->
+<script>
+// Update total whenever quantity changes
+function updateTotal() {
+  const total = 
+    (parseInt(pizza.value) || 0)*100 +
+    (parseInt(burger.value) || 0)*50 +
+    (parseInt(blackforest.value) || 0)*400 +
+    (parseInt(vanilla.value) || 0)*500 +
+    (parseInt(mojito.value) || 0)*80 +
+    (parseInt(coffee.value) || 0)*50;
+  
+  document.getElementById('totalPrice').innerText = total;
+}
+
+const qtyInputs = [pizza, burger, blackforest, vanilla, mojito, coffee];
+qtyInputs.forEach(input => input.addEventListener('input', updateTotal));
+
+updateTotal();
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
