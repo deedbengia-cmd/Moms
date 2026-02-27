@@ -262,7 +262,45 @@ function placeOrder(){
 </script><!-- Your existing HTML content -->
 <!-- Your existing scripts like placeOrder() and WhatsApp integration -->
 <script>
-function placeOrder() {
+function placeOrder() {<script>
+
+  // Get customer details
+  const name = document.getElementById("name").value;
+  
+  // Get quantities of all products
+  const pizzaQty = document.getElementById("pizza").value || 0;
+  const burgerQty = document.getElementById("burger").value || 0;
+  const blackforestQty = document.getElementById("blackforest").value || 0;
+  const vanillaQty = document.getElementById("vanilla").value || 0;
+  const mojitoQty = document.getElementById("mojito").value || 0;
+  const coffeeQty = document.getElementById("coffee").value || 0;
+
+  // Get payment method
+  const payment = document.getElementById("payment").value;
+
+  // Prepare message
+  const message = `Order from ${name}:\n` +
+                  `Pizza: ${pizzaQty}\n` +
+                  `Burger: ${burgerQty}\n` +
+                  `Black Forest Cake: ${blackforestQty}\n` +
+                  `Vanilla Cake: ${vanillaQty}\n` +
+                  `Mojito: ${mojitoQty}\n` +
+                  `Black Coffee: ${coffeeQty}\n` +
+                  `Payment Method: ${payment}`;
+
+  // Your WhatsApp number in international format
+  const whatsappNumber = "919362734907";
+
+  // Open WhatsApp with the message
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, "_blank");
+
+  // Optional: redirect to success page after 2 seconds
+  setTimeout(() => {
+    window.location.href = "order-success.html";
+  }, 2000);
+}
+</script>
   // Your WhatsApp + redirect code
 }
 </script>
