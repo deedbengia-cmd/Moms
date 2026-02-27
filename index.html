@@ -1,0 +1,262 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tachung Bakery | Doimukh</title>
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  margin:0;
+  background: #fff9f5;
+  color: #333;
+}
+
+header{
+  text-align:center;
+  padding:30px 0;
+  font-size:36px;
+  font-weight:bold;
+  color:#ff4d4d;
+  background: #fff0eb;
+}
+
+nav{
+  display:flex;
+  justify-content:center;
+  margin:20px 0;
+  gap:20px;
+}
+
+nav button{
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:#ff6f61;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+nav button:hover{
+  background:#ff3b2d;
+}
+
+.section{
+  display:none;
+  padding:20px;
+}
+
+.section.active{
+  display:block;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border-radius:15px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
+  text-align:center;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+}
+
+.card img{
+  width:100%;
+  border-radius:15px 15px 0 0;
+  height:180px;
+  object-fit:cover;
+}
+
+.card h3{
+  margin:10px 0 5px;
+}
+
+.card p{
+  font-weight:bold;
+  color:#ff4d4d;
+}
+
+input[type="number"]{
+  width:60px;
+  padding:5px;
+  margin:5px 0 10px 0;
+  border-radius:5px;
+  border:1px solid #ccc;
+  text-align:center;
+}
+
+.order-section{
+  background:#fff0eb;
+  padding:20px;
+  margin:20px;
+  border-radius:15px;
+  text-align:center;
+}
+
+.order-section input, .order-section select{
+  padding:10px;
+  margin:10px 0;
+  border-radius:8px;
+  border:1px solid #ccc;
+  width:200px;
+}
+
+button.order-btn{
+  background:#ff6f61;
+  color:white;
+  border:none;
+  padding:12px 25px;
+  border-radius:10px;
+  font-size:18px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button.order-btn:hover{
+  background:#ff3b2d;
+}
+
+.success-message{
+  display:none;
+  font-size:20px;
+  color:green;
+  font-weight:bold;
+  margin-top:15px;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  margin-top:30px;
+  background:#fff0eb;
+  font-weight:bold;
+  color:#ff4d4d;
+}
+</style>
+</head>
+<body>
+
+<header>Tachung Bakery - Doimukh</header>
+
+<nav>
+  <button onclick="showSection('fastfood')">Fast Food</button>
+  <button onclick="showSection('cakes')">Cakes</button>
+  <button onclick="showSection('beverages')">Beverages</button>
+</nav>
+
+<!-- FAST FOOD -->
+<div id="fastfood" class="section active">
+<h2>🍕 Fast Food</h2>
+<div class="products">
+<div class="card">
+<img src="pizza.jpg" alt="Pizza">
+<h3>Pizza</h3>
+<p>₹100</p>
+Qty: <input type="number" id="pizza" value="0" min="0">
+</div>
+
+<div class="card">
+<img src="burger.jpg" alt="Burger">
+<h3>Burger</h3>
+<p>₹50</p>
+Qty: <input type="number" id="burger" value="0" min="0">
+</div>
+</div>
+</div>
+
+<!-- CAKES -->
+<div id="cakes" class="section">
+<h2>🎂 Cakes</h2>
+<div class="products">
+<div class="card">
+<img src="blackforest.jpg" alt="Black Forest Cake">
+<h3>Black Forest</h3>
+<p>₹400</p>
+Qty: <input type="number" id="blackforest" value="0" min="0">
+</div>
+
+<div class="card">
+<img src="vanilla.jpg" alt="Vanilla Cake">
+<h3>Vanilla Cake</h3>
+<p>₹500</p>
+Qty: <input type="number" id="vanilla" value="0" min="0">
+</div>
+</div>
+</div>
+
+<!-- BEVERAGES -->
+<div id="beverages" class="section">
+<h2>☕ Beverages</h2>
+<div class="products">
+<div class="card">
+<img src="mojito.jpg" alt="Mojito">
+<h3>Mojito</h3>
+<p>₹80</p>
+Qty: <input type="number" id="mojito" value="0" min="0">
+</div>
+
+<div class="card">
+<img src="coffee.jpg" alt="Black Coffee">
+<h3>Black Coffee</h3>
+<p>₹50</p>
+Qty: <input type="number" id="coffee" value="0" min="0">
+</div>
+</div>
+</div>
+
+<!-- ORDER SECTION -->
+<div class="order-section">
+<h2>Complete Your Order</h2>
+<input type="text" id="name" placeholder="Enter Your Name" required><br>
+<select id="payment">
+  <option value="QR Payment">QR Payment</option>
+  <option value="Cash on Delivery">Cash on Delivery</option>
+</select><br><br>
+<img src="qr.png" width="200"><br><br>
+<button class="order-btn" onclick="placeOrder()">Place Order</button>
+</div>
+
+<footer>© 2026 Tachung Bakery | Online Orders Available</footer>
+
+<script>
+// Show sections
+function showSection(sectionId){
+  document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
+}
+
+// Calculate total
+function calculateTotal(){
+  return (pizza.value*100)+(burger.value*50)+(blackforest.value*400)+(vanilla.value*500)+(mojito.value*80)+(coffee.value*50);
+}
+
+// Place Order → WhatsApp + Redirect
+function placeOrder(){
+  const name = document.getElementById('name').value || 'Customer';
+  const payment = document.getElementById('payment').value;
+  const total = calculateTotal();
+
+  // WhatsApp message
+  const msg = `New Order from Tachung Bakery\n\nName: ${name}\nPizza: ${pizza.value}\nBurger: ${burger.value}\nBlack Forest: ${blackforest.value}\nVanilla Cake: ${vanilla.value}\nMojito: ${mojito.value}\nBlack Coffee: ${coffee.value}\nPayment: ${payment}\nTotal: ₹${total}`;
+  const url = `https://wa.me/919362734907?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+
+  // Redirect to confirmation page with query params
+  window.location.href = `order-success.html?name=${encodeURIComponent(name)}&payment=${encodeURIComponent(payment)}&total=${total}`;
+}
+</script>
+
+</body>
+</html>
